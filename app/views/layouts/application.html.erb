@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Standup App</title>
+    <title>SoftLearn</title>
 <%= csrf_meta_tags %>
 <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'%>
 <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload'%> 
 <%= stylesheet_link_tag href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" %>
   </head>
+<% if user_signed_in? %>
   <body class="fixed skin-blue-light">
 <div class="wrapper">
       <%= render 'layouts/navigation/layout'%>
@@ -14,6 +15,9 @@
           <%= yield %>
       </div>
       <%= render 'layouts/navigation/footer' %>
+<% else %>
+          <%= yield %>
+<% end %>
 </div>
   </body>
 </html>
