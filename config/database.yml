@@ -17,7 +17,7 @@ default: &default
 
 development:
   <<: *default
-  database: victorios_low_development
+  database: briefcase_development
   username: root
   password: mysql
   host: 127.0.0.1
@@ -27,7 +27,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: victorios_low_test
+  database: briefcase_test
   username: root
   password: mysql
   host: 127.0.0.1

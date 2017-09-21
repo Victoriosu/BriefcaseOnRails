@@ -1,0 +1,24 @@
+<%%= simple_form_for @<%= singular_table_name %>, defaults: { label_html: { class: 'tituloFila' }, input_html: { class: 'contenidoFila'}}, :multipart => true,  :validate => true do |f| %>
+	<%% if can? :update, <%= singular_table_name.classify %> and @current_action != 'show' %>
+		<%#= f.button :submit, :value => "Guardar", :class => "guardarProyecto" %>
+	<%% end %>
+	<%%= f.error_messages %>
+
+	<div class="filaMenu">
+		<div>
+		    <a class="menuTabs hvr-underline-from-left activo" rel="tabs1" href="javascript:void(0)">General</a>
+	    </div>
+	</div><!--fin filaMenu -->
+
+	<div class="contenedorInfo interior">
+	    
+		<div class="contTabsInterior">
+	    	<div class="cont" id="tabs1">
+				<%%= render :partial => '<%= plural_table_name %>/partials/general', :locals => { :f => f } %>
+	        </div><!--fin cont tabs-->
+	        
+	    </div><!--Fin contTabsInterior --> 
+	    
+	</div><!--fin contenedorInfo -->
+
+<%% end %>

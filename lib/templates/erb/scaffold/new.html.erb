@@ -1,0 +1,14 @@
+<div class="filaMenu">
+    <%%= link_to raw("<span class='arrow'><i class='material-icons'>&#xE5C4;</i></span><span><%= singular_table_name.classify %></span>"), <%= plural_table_name %>_path, class: "volverTodos" %>
+    <a href="" class="volverTodos">
+    	<span class='arrow'><i class="material-icons">&#xE314;</i></span>
+    	<span>Nuevo <%= singular_table_name %></span>
+    </a>
+    
+    <div class="btnDerechaGuardar">
+        <a href="#" class="btnGuardar">Guardar</a>
+    </div>
+
+</div><!--fin filaMenu -->
+
+<%%= render 'form' %>

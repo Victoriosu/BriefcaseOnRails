@@ -1,0 +1,50 @@
+<div class="columnsTabs">
+<% if params[:action] != "new" %>
+	<div class="cuadroDatosInterior">
+		<% attributes.each do |attribute| -%>
+			<div class="fila1">
+		        <label class="tituloFila"><%= attribute.human_name %></label>
+		        <label class="contenidoFila"><%%= @<%= singular_table_name %>.<%= attribute %> %></label>
+		    </div>
+		<% end %>
+	</div><!--Fin cuadroDatosInterior -->
+<% end %>
+
+
+	<div class="cuadroDatosInterior">
+
+	<% if params[:action] != "show" %>
+<!-- Agregar aqui inputs necesarios -->
+<!-- 	<%= f.input :description, :label => "Descripcion", :input_html => { disabled: true } %>
+	<%= f.association :category,label: "Categoría", :input_html => {:class => 'field-style field-full align-none select_category', disabled: true }, prompt: "Seleccione sub categoría", :value_method => :id, :collection => Category.all  %>
+	<%= f.association :sub_category,label: "Sub Categoría", :input_html => {:class => 'field-style field-full align-none select_sub_category', disabled: true }, prompt: "Seleccione sub categoría", :value_method => :id %>
+	<%= f.input :codigo, label: "Código", :input_html => { disabled: true } %>
+	<%= f.input :mayorist_price, label: "Precio Minorista", :input_html => { disabled: true }  %>
+	<%= f.input :minorist_price, label: "Precio Mayorista", :input_html => { disabled: true }  %> -->
+	<% end %>
+
+
+
+
+	</div><!--Fin cuadroDatosInterior -->
+</div>
+
+<div class="columnsTabs2">
+	
+</div><!--fin columnsTabs2 -->
+
+<!-- Select dependiente de ejemplo, eliminar si no se necesita-->
+<script type="text/javascript">
+	$(".lightbox2.tiempo.f").fadeIn();
+
+	$(".select_category").change(function(){
+		category_id = $(this).val();
+		$.getJSON('/get_sub_categories_by_category_id', {category_id: category_id }, function(data){
+			$('.select_sub_category').empty();
+			$('.select_sub_category').append('<option value="">Seleccione por favor</option>');
+	        $.each(data, function(i, d) {
+	            $('.select_sub_category').append('<option value="' + d.id + '">' + d.name + '</option>');
+	        });
+		});
+	})
+</script>

@@ -1,0 +1,62 @@
+<div class="filaMenu">
+   	<a href="javascript:history.back()" class="volverTodos"><span class="arrow"><i class="material-icons">&#xE5C4;</i></span><span>Listado de <%= human_name %></span></a>
+
+   	<%% if can? :create, <%= singular_table_name.classify %> %>
+	   	<div class="btnDerechaGuardar ocultoTablet">
+	   		<%%= link_to 'Nuevo <%= human_name %>', new_<%= singular_table_name %>_path, :class => "botonIndex" %>
+	   	</div>
+   	<%% end %>
+</div>
+
+
+<div class="lista">
+	<h2><%%= paginate_range(@<%= plural_table_name %>,@<%= plural_table_name %>.count,"#{@title} #{@subtitle}") %></h2>
+	<table width="100%" border="0" cellspacing="0" cellpadding="5">
+		<thead>
+		  <tr>
+			<% attributes.each do |attribute| -%>
+			<th><h3><%= attribute.human_name %></h3></th>
+			<% end %>
+			<th class="ocultoTablet"><h3>Fecha de creación</h3></th>
+			<th class="ocultoTablet"><h3>Fecha de modificación</h3></th>
+		    <th class="nosort"><h3></h3></th>
+			<%% if can? :destroy, <%= singular_table_name.classify %> %>
+		    	<th class="nosort"><h3></h3></th>
+			<%% end %>
+		  </tr>
+		</thead>
+		<tbody>
+				<%% @<%= plural_table_name %>.each do |<%= singular_table_name %>| %>
+					<%% if can? :update, <%= singular_table_name.classify %> %>
+					  <tr onclick="location='<%%= edit_<%= singular_table_name %>_path(<%=singular_table_name %>) %>'" style="cursor: pointer;">
+					<%% else %>
+					  <tr>
+					<%% end %>
+					<% attributes.each do |attribute| -%>
+					<td><%%= <%= singular_table_name %>.<%= attribute.name %> %></td>
+					<% end %>
+					<td class="ocultoTablet"><%%= I18n.l <%= singular_table_name %>.created_at %></td>
+					<td class="ocultoTablet"><%%= I18n.l <%= singular_table_name %>.updated_at %></td>					
+				    <td><%%= link_to raw('<i class="material-icons edit_btn">visibility</i>'), <%= singular_table_name %>_edit_path(@<%= singular_table_name %>) %></td>
+					<%% if can? :destroy, <%= singular_table_name.classify %> %>
+				    <td onclick="event.cancelBubble=true;" style="cursor:auto">
+						<%%= link_to_destroy raw('<i class="material-icons trash">&#xE872;</i>'), <%= singular_table_name %>_path(<%= singular_table_name %>) %>
+					</td>
+					<%% end %>
+				  </tr>
+				<%% end %>
+		</tbody>
+	</table>
+	<%%= will_paginate @<%= plural_table_name %> %>
+</div>
+
+<script type="text/javascript">
+	$( "tr:even" ).addClass( "oddrow");
+	$("tr").hover( 
+		function () {
+			$(this).attr("id","selectedrow");
+		}, function () {
+			$(this).attr("id","");
+		}
+	);
+</script>
